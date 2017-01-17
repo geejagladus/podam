@@ -1,11 +1,17 @@
-general:
- build_dir:/src/main/java/uk/co/jemos/podam/api/
- artifacts:
-  - $CIRCLE_TEST_REPORTS
-  - target
-test:
- override:
-  - mvn clean test
- post:
-  - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-  - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+ machine:
+   ruby:
+     version: rbx-2.2.6
+  java:
+     version: openjdk8
+  
+  general:
+     artifacts:
+           general:
+       
+  test:
+    override:
+     - mvn clean install
+     - mvn clean verify
+    post:
+      - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+      - find . -type f -regex ".*/target/failsafe-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
