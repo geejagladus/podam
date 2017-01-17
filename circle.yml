@@ -1,6 +1,4 @@
-dependencies:
-  override:
-    - mvn --fail-never dependency:go-offline || true
+
 
 
 test:
